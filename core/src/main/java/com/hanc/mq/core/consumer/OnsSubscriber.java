@@ -3,6 +3,8 @@ package com.hanc.mq.core.consumer;
 import com.alibaba.fastjson.JSON;
 import com.aliyun.openservices.ons.api.*;
 import com.google.common.collect.Maps;
+import com.hanc.mq.core.consumer.base.Observer;
+import com.hanc.mq.core.consumer.base.Subscriber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

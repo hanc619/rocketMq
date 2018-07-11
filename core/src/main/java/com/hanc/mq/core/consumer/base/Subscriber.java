@@ -1,4 +1,4 @@
-package com.hanc.mq.core.consumer;
+package com.hanc.mq.core.consumer.base;
 
 public interface Subscriber {
 

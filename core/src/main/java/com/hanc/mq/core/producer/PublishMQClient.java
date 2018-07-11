@@ -5,7 +5,6 @@ import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.ons.api.ONSFactory;
 import com.aliyun.openservices.ons.api.Producer;
 import com.aliyun.openservices.ons.api.PropertyKeyConst;
-import com.hanc.mq.core.common.SpringFactory;
 import com.hanc.mq.core.config.DefaultMQConfig;
 import com.hanc.mq.core.model.MQSendResult;
 import com.hanc.mq.core.model.MqConfigProp;
@@ -29,8 +28,8 @@ public class PublishMQClient extends DefaultMQConfig implements InitializingBean
 
 
 	@Autowired
-	public PublishMQClient(MqConfigProp mqConfigProp, SpringFactory springFactory)  {
-		super(mqConfigProp, springFactory);
+	public PublishMQClient(MqConfigProp mqConfigProp)  {
+		super(mqConfigProp);
 		Properties properties = super.mqProperties();
 		properties.put(PropertyKeyConst.ProducerId, mqConfigProp.getPid());
 		this.producer =ONSFactory.createProducer(properties);
@@ -72,7 +71,6 @@ public class PublishMQClient extends DefaultMQConfig implements InitializingBean
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
-
 		if(producer != null){
 			producer.start();
 		}

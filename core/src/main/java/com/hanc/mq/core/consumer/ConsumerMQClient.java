@@ -1,7 +1,6 @@
 package com.hanc.mq.core.consumer;
 
 import com.aliyun.openservices.ons.api.PropertyKeyConst;
-import com.hanc.mq.core.common.SpringFactory;
 import com.hanc.mq.core.config.DefaultMQConfig;
 import com.hanc.mq.core.model.MqConfigProp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ public class ConsumerMQClient extends DefaultMQConfig {
 
 
     @Autowired
-    public ConsumerMQClient(MqConfigProp mqConfigProp, SpringFactory springFactory) {
-        super(mqConfigProp, springFactory);
+    public ConsumerMQClient(MqConfigProp mqConfigProp) {
+        super(mqConfigProp);
     }
 
     public Properties mqConsumerProperties (){
