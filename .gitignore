@@ -1,0 +1,14 @@
+.svn/
+target/
+.settings/
+.classpath
+.project
+.myeclipse
+.DS_Store*
+*.iml
+*.class
+*.log
+.idea/
+src/test/java/eh/test/CollectionSort.java
+**/env/local-env.properties
+**/resources/spring-mq-local.xml
