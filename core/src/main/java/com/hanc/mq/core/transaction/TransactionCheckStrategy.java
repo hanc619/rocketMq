@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.ons.api.transaction.LocalTransactionExecuter;
 import com.aliyun.openservices.ons.api.transaction.TransactionStatus;
-import com.hanc.mq.core.model.ConsumeTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,7 @@ public abstract class TransactionCheckStrategy<T> implements LocalTransactionExe
 	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionCheckStrategy.class);
 	@SuppressWarnings("unchecked")
 	public TransactionStatus check(Message message){
-		T messageBody = null;
+		T messageBody;
 		Class<?> messageType;
 		try {
 			messageType = Class.forName(message.getUserProperties("messageType"));
@@ -28,7 +27,7 @@ public abstract class TransactionCheckStrategy<T> implements LocalTransactionExe
 		}
 	}
 
-	public abstract boolean support(ConsumeTag tag);
+	public abstract boolean support(String tag);
 	
 	public abstract TransactionStatus checkLocalTransaction(T message);
 	

@@ -1,7 +1,7 @@
 package com.hanc.mq.producer.controller;
 
-import com.hanc.mq.core.model.ConsumeTag;
 import com.hanc.mq.core.model.MQSendResult;
+import com.hanc.mq.core.model.OnsTopic;
 import com.hanc.mq.core.producer.PublishMQClient;
 import com.hanc.mq.producer.api.OrderApi;
 import com.hanc.mq.producer.model.OrderPaidSucceedMessage;
@@ -15,10 +15,14 @@ public class OrderAPIController implements OrderApi {
 	@Autowired
 	private PublishMQClient publishMqClient;
 
+	@Autowired
+	private OnsTopic onsTopic;
+
+
 
 	@Override
 	public String pay(Integer orderId) {
-		MQSendResult result = publishMqClient.sendMessage(ConsumeTag.ORDER_PAID_SUCCEED, new OrderPaidSucceedMessage(orderId), String.valueOf(orderId));
+		MQSendResult result = publishMqClient.sendMessage(onsTopic.getMsgTopic(), new OrderPaidSucceedMessage(orderId), String.valueOf(orderId));
 		if(result == null){
 			return "支付失败了";
 		}
