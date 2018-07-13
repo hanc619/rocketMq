@@ -3,6 +3,7 @@ target/
 .settings/
 .classpath
 .project
+.properties
 .myeclipse
 .DS_Store*
 *.iml

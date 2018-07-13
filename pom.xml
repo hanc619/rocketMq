@@ -11,6 +11,11 @@
     <modules>
         <module>core</module>
         <module>producer-api</module>
+        <module>consumer</module>
+        <module>cosumer-second</module>
+        <module>producer</module>
+        <module>producer-api</module>
+        <module>serverRegister</module>
     </modules>
     <name>rocketMq</name>
 
