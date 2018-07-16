@@ -1,4 +1,4 @@
-package com.hanc.mq.core.model;
+package com.hanc.mq.producersecond.model;
 
 
 import org.springframework.beans.factory.annotation.Value;

@@ -1,8 +1,8 @@
 package com.hanc.mq.consumer.listener;
 
+import com.hanc.mq.consumer.model.OnsTopic;
 import com.hanc.mq.core.consumer.base.Observer;
 import com.hanc.mq.core.consumer.OnsSubscriber;
-import com.hanc.mq.core.model.OnsTopic;
 import com.hanc.mq.producer.model.OrderPaidSucceedMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
