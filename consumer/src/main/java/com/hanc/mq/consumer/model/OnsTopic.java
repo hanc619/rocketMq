@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 public class OnsTopic {
 
     @Value("${ons.topic.msg}")
-    public String msgTopic;
+    private String msgTopic;
 
     @Value("${ons.topic.switch}")
-    public Boolean onsSwitch;
+    private Boolean onsSwitch;
 
     public String getMsgTopic() {
         return msgTopic;

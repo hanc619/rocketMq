@@ -5,6 +5,8 @@ import com.aliyun.openservices.ons.api.*;
 import com.google.common.collect.Maps;
 import com.hanc.mq.core.consumer.base.Observer;
 import com.hanc.mq.core.consumer.base.Subscriber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,8 @@ import java.util.concurrent.ConcurrentMap;
 
 @Component
 public class OnsSubscriber implements Subscriber {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OnsSubscriber.class);
 
     private ConsumerMQClient consumerMQClient;
 
@@ -50,6 +54,7 @@ public class OnsSubscriber implements Subscriber {
                 }
             }
         });
+        LOGGER.info("topic[{}]  subscribe succeed{}", topic, replaced?", replaced which it exists yet":"");
         consumer.start();
     }
 }
