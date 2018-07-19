@@ -42,8 +42,8 @@ public class OnsSubscriber implements Subscriber {
                 String topic = message.getTopic();
                 Observer<T> observer = observers.get(topic);
                 String type = message.getUserProperties("messageType");
-                String body = new String(message.getBody());
                 try {
+                    String body = new String(message.getBody(), "utf-8");
                     if (StringUtils.isEmpty(type) || "String".equals(type)) {
                         messageBody = (T) body;
                     } else {
