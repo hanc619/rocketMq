@@ -1,8 +1,7 @@
 package com.hanc.mq.core.consumer;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.Feature;
 import com.aliyun.openservices.ons.api.*;
 import com.google.common.collect.Maps;
 import com.hanc.mq.core.consumer.base.Observer;
@@ -11,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
-import java.io.Serializable;
 import java.util.concurrent.ConcurrentMap;
 
 @Component
@@ -43,16 +42,22 @@ public class OnsSubscriber implements Subscriber {
                 String topic = message.getTopic();
                 Observer<T> observer = observers.get(topic);
                 String type = message.getUserProperties("messageType");
+                String body = new String(message.getBody());
                 try {
-                    String body = new String(message.getBody());
-                    if ("String".equals(type)) {
+                    if (StringUtils.isEmpty(type) || "String".equals(type)) {
                         messageBody = (T) body;
                     } else {
-                        messageBody = (T) JSONObject.parseObject(body);
+                        //如果没有类型值需要验证
+                        try {
+                            messageBody =  (T)JSONObject.parseObject(body);
+                        } catch (JSONException e) {
+                            messageBody = (T) body;
+                        }
                     }
                     observer.onMessage(messageBody);
                     return Action.CommitMessage;
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     LOGGER.warn("attach body fail topic is [{}] ", topic, e);
                     return Action.ReconsumeLater;
                 }
