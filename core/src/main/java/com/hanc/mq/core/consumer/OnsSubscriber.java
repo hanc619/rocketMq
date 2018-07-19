@@ -43,7 +43,6 @@ public class OnsSubscriber implements Subscriber {
                 String topic = message.getTopic();
                 Observer<T> observer = observers.get(topic);
                 String type = message.getUserProperties("messageType");
-                LOGGER.info("attach body fail topic is [{}] ", type);
                 try {
                     String body = new String(message.getBody());
                     if ("String".equals(type)) {
@@ -51,7 +50,6 @@ public class OnsSubscriber implements Subscriber {
                     } else {
                         messageBody = (T) JSONObject.parseObject(body);
                     }
-                    LOGGER.info("attach body messageBody  is [{}] ", messageBody);
                     observer.onMessage(messageBody);
                     return Action.CommitMessage;
                 } catch (Exception e) {
