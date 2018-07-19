@@ -1,7 +1,5 @@
 package com.hanc.mq.producer.model;
 
-import java.io.Serializable;
-
 public class OrderPaidSucceedMessage {
 	
 //	private static final long serialVersionUID = 8673315516088031608L;

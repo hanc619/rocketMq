@@ -8,6 +8,8 @@ import com.hanc.mq.producer.model.OrderPaidSucceedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
+
 @RestController
 public class OrderAPIController implements OrderApi {
 
@@ -22,7 +24,9 @@ public class OrderAPIController implements OrderApi {
 
 	@Override
 	public String pay(Integer orderId) {
-		MQSendResult result = publishMqClient.sendMessage(onsTopic.getMsgTopic(), new OrderPaidSucceedMessage(orderId), String.valueOf(orderId));
+		int round = new Random().nextInt(100);
+		orderId = round + orderId;
+		MQSendResult result = publishMqClient.sendMessage(onsTopic.getMsgTopic(), String.valueOf(orderId), String.valueOf(orderId));
 		if(result == null){
 			return "支付失败了";
 		}

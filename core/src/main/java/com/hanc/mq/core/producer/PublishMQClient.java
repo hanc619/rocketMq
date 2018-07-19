@@ -1,6 +1,7 @@
 package com.hanc.mq.core.producer;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.ons.api.ONSFactory;
 import com.aliyun.openservices.ons.api.Producer;
@@ -60,11 +61,13 @@ public class PublishMQClient extends DefaultMQConfig implements InitializingBean
 		if(body.getClass().isPrimitive() || body.getClass() == String.class) {
 			byteBody = String.valueOf(body).getBytes(Charset.forName("UTF-8"));
 		} else {
-			byteBody = JSON.toJSONBytes(body);
+			String bodyString = JSONObject.toJSONString(body);
+			byteBody = String.valueOf(bodyString).getBytes(Charset.forName("UTF-8"));
 		}
 		key = topic + "_" + key;
-		Message message = new Message(topic,topic,key,byteBody);
-		message.putUserProperties("messageType", body.getClass().getName());
+		String tag = "";
+		Message message = new Message(topic,tag,key,byteBody);
+		message.putUserProperties("messageType", body.getClass().getSimpleName());
 		message.putUserProperties("_uuid", System.nanoTime() + UUID.randomUUID().toString().replaceAll("-", ""));
 		return message;
 	}
