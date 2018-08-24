@@ -29,7 +29,7 @@ public class ListenerEvent {
             LOGGER.info("the onsSwitch2 is set off, consumer not subscribe.");
             return;
         }
-        subscriber.attach(onsTopic.getMsgTopic(), new Observer<Map>() {
+        subscriber.attach(onsTopic.getMsgTopic(), "", new Observer<Map>() {
             @Override
             public void onMessage(Map message) {
                 LOGGER.info("get sensitive2 ONS Msg id is [{}]：", message.get("orderId"));

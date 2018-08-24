@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Map;
 
 @Component
 public class ListenerEvent {
@@ -23,31 +24,15 @@ public class ListenerEvent {
     private OnsTopic onsTopic;
 
     @PostConstruct
-    public void topicMsgConsumer() {
-        if (!onsTopic.getOnsSwitch()) {
-            LOGGER.info("the onsSwitch is set off, consumer not subscribe.");
-            return;
-        }
-        subscriber.attach(onsTopic.getMsgTopic(), new Observer<OrderPaidSucceedMessage>() {
-            @Override
-            public void onMessage(OrderPaidSucceedMessage message) {
-                LOGGER.info("get sensitive ONS Msg id is [{}]：", message.getOrderId());
-                int orderId = message.getOrderId();
-            }
-        });
-    }
-
-    @PostConstruct
     public void topicMsgConsumers() {
         if (!onsTopic.getOnsSwitch()) {
             LOGGER.info("the onsSwitch2 is set off, consumer not subscribe.");
             return;
         }
-        subscriber.attach(onsTopic.getMsgTopic(), new Observer<OrderPaidSucceedMessage>() {
+        subscriber.attach(onsTopic.getMsgTopic(), "", new Observer<Map>() {
             @Override
-            public void onMessage(OrderPaidSucceedMessage message) {
-                LOGGER.info("get sensitive2 ONS Msg id is [{}]：", message.getOrderId());
-                int orderId = message.getOrderId();
+            public void onMessage(Map message) {
+                LOGGER.info("get sensitive2 ONS Msg id is [{}]：", message.get("orderId"));
             }
         });
     }

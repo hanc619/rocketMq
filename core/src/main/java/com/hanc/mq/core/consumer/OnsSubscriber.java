@@ -6,6 +6,7 @@ import com.aliyun.openservices.ons.api.*;
 import com.google.common.collect.Maps;
 import com.hanc.mq.core.consumer.base.Observer;
 import com.hanc.mq.core.consumer.base.Subscriber;
+import com.hanc.mq.core.model.TopicForTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class OnsSubscriber implements Subscriber {
 
     private ConsumerMQClient consumerMQClient;
 
-    private ConcurrentMap<String, Observer> observers = Maps.newConcurrentMap();
+    private ConcurrentMap<TopicForTag, Observer> observers = Maps.newConcurrentMap();
 
     private Consumer consumer;
 
@@ -29,42 +30,30 @@ public class OnsSubscriber implements Subscriber {
     public OnsSubscriber(ConsumerMQClient consumerMQClient) {
         this.consumerMQClient = consumerMQClient;
         this.consumer = ONSFactory.createConsumer(consumerMQClient.mqConsumerProperties());
+        consumer.start();
     }
 
     @Override
-    public <T> void attach(String topic, Observer<T> observer) {
+    public void attach(String topic, String tag, final Observer observer) {
         boolean replaced = observers.containsKey(topic);
-        observers.put(topic, observer);
-        consumer.subscribe(topic, "", new MessageListener() {
+        observers.put(new TopicForTag(topic, tag), observer);
+        consumer.subscribe(topic, tag, new MessageListener() {
             @Override
             public Action consume(Message message, ConsumeContext context) {
-                T messageBody;
                 String topic = message.getTopic();
-                Observer<T> observer = observers.get(topic);
-                String type = message.getUserProperties("messageType");
+                String tag = message.getTag();
                 try {
                     String body = new String(message.getBody(), "utf-8");
-                    if (StringUtils.isEmpty(type) || "String".equals(type)) {
-                        messageBody = (T) body;
-                    } else {
-                        //如果没有类型值需要验证
-                        try {
-                            messageBody =  (T)JSONObject.parseObject(body);
-                        } catch (JSONException e) {
-                            messageBody = (T) body;
-                        }
-                    }
-                    observer.onMessage(messageBody);
+                    observer.onMessage(body, tag);
                     return Action.CommitMessage;
                 }
                 catch (Exception e) {
                     LOGGER.warn("attach body fail topic is [{}] ", topic, e);
-                    return Action.ReconsumeLater;
+                    return Action.CommitMessage;
                 }
             }
         });
         LOGGER.info("topic[{}]  subscribe succeed{}", topic, replaced ? ", replaced which it exists yet":"");
-        consumer.start();
     }
 }
 
