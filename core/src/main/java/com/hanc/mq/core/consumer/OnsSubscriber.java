@@ -1,7 +1,5 @@
 package com.hanc.mq.core.consumer;
 
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
 import com.aliyun.openservices.ons.api.*;
 import com.google.common.collect.Maps;
 import com.hanc.mq.core.consumer.base.Observer;
@@ -11,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.concurrent.ConcurrentMap;
 
