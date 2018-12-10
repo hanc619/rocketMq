@@ -1,7 +1,7 @@
 package com.hanc.mq.core.consumer.base;
 
 
-public interface Observer{
+public interface Observer<T>{
 
-    void onMessage(String message, String tag);
+    void onMessage(T t, String tag);
 }

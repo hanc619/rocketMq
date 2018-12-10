@@ -1,5 +1,6 @@
 package com.hanc.mq.core.consumer;
 
+import com.alibaba.fastjson.JSONObject;
 import com.aliyun.openservices.ons.api.*;
 import com.google.common.collect.Maps;
 import com.hanc.mq.core.consumer.base.Observer;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 @Component
@@ -30,8 +32,10 @@ public class OnsSubscriber implements Subscriber {
         consumer.start();
     }
 
+
     @Override
-    public void attach(String topic, String tag, final Observer observer) {
+    public <T> void attach(String topic, String tag, Class<T> strategy, Observer observer) {
+
         boolean replaced = observers.containsKey(topic);
         observers.put(new TopicForTag(topic, tag), observer);
         consumer.subscribe(topic, tag, new MessageListener() {
@@ -41,7 +45,8 @@ public class OnsSubscriber implements Subscriber {
                 String tag = message.getTag();
                 try {
                     String body = new String(message.getBody(), "utf-8");
-                    observer.onMessage(body, tag);
+                    T t = JSONObject.parseObject(body, strategy);
+                    observer.onMessage(t, tag);
                     return Action.CommitMessage;
                 }
                 catch (Exception e) {

@@ -29,7 +29,7 @@ public class ListenerEvent {
             LOGGER.info("the onsSwitch2 is set off, consumer not subscribe.");
             return;
         }
-        subscriber.attach(onsTopic.getMsgTopic(), "*", (message, tag) -> {
+        subscriber.attach(onsTopic.getMsgTopic(), "*", String.class, (message, tag) -> {
             LOGGER.info("consumer first get sensitive2 ONS Msg id is [{}], tag is [{}]：", message, tag);
         });
     }
