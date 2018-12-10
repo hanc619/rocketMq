@@ -27,7 +27,6 @@ public class PublishMQClient extends DefaultMQConfig implements InitializingBean
 
     private Producer producer;
 
-
     @Autowired
     public PublishMQClient(MqConfigProp mqConfigProp) {
         super(mqConfigProp);

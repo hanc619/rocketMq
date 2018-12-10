@@ -8,8 +8,6 @@ import java.util.Properties;
 
 public abstract class DefaultMQConfig{
 
-
-
 	protected MqConfigProp mqConfigProp;
 
 	@Autowired

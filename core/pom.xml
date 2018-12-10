@@ -13,29 +13,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <rocketmq.version>1.6.0.Final</rocketmq.version>
         <springboot.version>1.5.3.RELEASE</springboot.version>
-        <fastjson.version>1.2.3</fastjson.version>
+        <fastjson.version>1.2.51</fastjson.version>
         <httpclient.version>4.5</httpclient.version>
         <guava.version>18.0</guava.version>
-        <gson.version>2.8.0</gson.version>
         <commons.collections.version>3.2.2</commons.collections.version>
         <slf4j.version>1.7.21</slf4j.version>
     </properties>
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.apache.httpcomponents</groupId>-->
-            <!--<artifactId>httpclient</artifactId>-->
-            <!--<version>${httpclient.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${springboot.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -66,8 +54,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

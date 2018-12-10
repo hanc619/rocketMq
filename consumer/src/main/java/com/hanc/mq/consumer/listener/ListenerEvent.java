@@ -1,5 +1,4 @@
 package com.hanc.mq.consumer.listener;
-import com.alibaba.fastjson.JSONObject;
 import com.hanc.mq.consumer.model.OnsTopic;
 import com.hanc.mq.core.consumer.base.Observer;
 import com.hanc.mq.core.consumer.OnsSubscriber;
@@ -7,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
-import java.util.Map;
-
 @Component
 public class ListenerEvent {
 
@@ -29,11 +25,8 @@ public class ListenerEvent {
             LOGGER.info("the onsSwitch2 is set off, consumer not subscribe.");
             return;
         }
-        subscriber.attach(onsTopic.getMsgTopic(), "", new Observer<Map>() {
-            @Override
-            public void onMessage(Map message) {
-                LOGGER.info("get sensitive2 ONS Msg id is [{}]：", message.get("orderId"));
-            }
+        subscriber.attach(onsTopic.getMsgTopic(), "*", (message, tag) -> {
+            LOGGER.info("consumer first get sensitive2 ONS Msg id is [{}], tag is [{}]：", message, tag);
         });
     }
 }

@@ -9,4 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface OrderApi {
 	@RequestMapping("/order/pay")
 	String pay(@RequestParam("orderId") Integer orderId);
+
+	@RequestMapping("/order/pay2")
+	String pay2(@RequestParam("orderId") Integer orderId);
 }

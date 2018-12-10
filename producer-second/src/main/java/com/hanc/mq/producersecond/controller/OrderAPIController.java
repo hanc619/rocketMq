@@ -29,4 +29,9 @@ public class OrderAPIController implements OrderApi {
 		return result.getMessageId();
 	}
 
+	@Override
+	public String pay2(Integer orderId) {
+		return null;
+	}
+
 }
