@@ -20,7 +20,6 @@ public class ConsumerMQClient extends DefaultMQConfig {
     public Properties mqConsumerProperties (){
         Properties properties = mqProperties();
         properties.put(PropertyKeyConst.ConsumerId, mqConfigProp.getCid());
-        properties.put(PropertyKeyConst.MessageModel, PropertyValueConst.BROADCASTING);
         return properties;
     }
 }
