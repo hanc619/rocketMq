@@ -10,8 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
-import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentMap;
 
 @Component
@@ -28,13 +29,16 @@ public class OnsSubscriber implements Subscriber {
     @Autowired
     public OnsSubscriber(ConsumerMQClient consumerMQClient) {
         this.consumerMQClient = consumerMQClient;
-        this.consumer = ONSFactory.createConsumer(consumerMQClient.mqConsumerProperties());
-        consumer.start();
+        Properties properties = consumerMQClient.mqConsumerProperties();
+        if (!StringUtils.isEmpty(properties.getProperty(PropertyKeyConst.ConsumerId))) {
+            this.consumer = ONSFactory.createConsumer(properties);
+            consumer.start();
+        }
     }
 
 
     @Override
-    public <T> void attach(String topic, String tag, Class<T> strategy, Observer observer) {
+    public <T> void attach(String topic, String tag, Class<T> strategy, Observer<T> observer) {
 
         boolean replaced = observers.containsKey(topic);
         observers.put(new TopicForTag(topic, tag), observer);
@@ -48,10 +52,9 @@ public class OnsSubscriber implements Subscriber {
                     T t = JSONObject.parseObject(body, strategy);
                     observer.onMessage(t, tag);
                     return Action.CommitMessage;
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LOGGER.warn("attach body fail topic is [{}] ", topic, e);
-                    return Action.CommitMessage;
+                    return Action.ReconsumeLater;
                 }
             }
         });

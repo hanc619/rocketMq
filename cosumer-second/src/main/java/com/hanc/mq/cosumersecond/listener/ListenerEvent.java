@@ -1,16 +1,12 @@
 package com.hanc.mq.cosumersecond.listener;
 
 import com.hanc.mq.core.consumer.OnsSubscriber;
-import com.hanc.mq.core.consumer.base.Observer;
 import com.hanc.mq.cosumersecond.model.OnsTopic;
-import com.hanc.mq.producer.model.OrderPaidSucceedMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
-import java.util.Map;
 
 @Component
 public class ListenerEvent {

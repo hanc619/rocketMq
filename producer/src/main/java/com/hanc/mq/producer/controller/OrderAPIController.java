@@ -6,15 +6,19 @@ import com.hanc.mq.producer.api.OrderApi;
 import com.hanc.mq.producer.model.OnsTopic;
 import com.hanc.mq.producer.model.OrderPaidSucceedMessage;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@RestController
 @Api(value = "test")
-public class OrderAPIController implements OrderApi {
+@RestController
+@RequestMapping(value = "order/")
+public class OrderAPIController {
 
 
 	@Autowired
@@ -27,7 +31,8 @@ public class OrderAPIController implements OrderApi {
 
 
 
-	@Override
+	@PostMapping("pay")
+	@ApiOperation(value = "pay1")
 	public String pay(Integer orderId) {
 		int round = new Random().nextInt(100);
 		i.addAndGet(1);
@@ -39,16 +44,12 @@ public class OrderAPIController implements OrderApi {
 		return result.getMessageId();
 	}
 
-	@Override
-	public String pay2(Integer orderId) {
-		int round = new Random().nextInt(100);
+	@PostMapping("pay2")
+	@ApiOperation(value = "pay2")
+	public void pay2(Integer orderId) {
 		i.addAndGet(1);
 		orderId = i.intValue();
-		MQSendResult result = publishMqClient.sendMessage(onsTopic.getMsgTopic(), "tag2",new OrderPaidSucceedMessage(orderId), String.valueOf(orderId));
-		if(result == null){
-			return "支付失败了";
-		}
-		return result.getMessageId();
+		publishMqClient.sendAsyncMessage(onsTopic.getMsgTopic(), "tag2",new OrderPaidSucceedMessage(orderId), String.valueOf(orderId));
 	}
 
 }

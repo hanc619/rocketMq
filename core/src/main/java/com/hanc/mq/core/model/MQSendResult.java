@@ -5,8 +5,6 @@ import com.aliyun.openservices.ons.api.SendResult;
 public class MQSendResult extends SendResult{
 	
 	private boolean success;
-
-	private String tag;
 	
 	public MQSendResult() {
 	}

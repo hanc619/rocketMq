@@ -1,7 +1,6 @@
 package com.hanc.mq.consumer.listener;
 import com.hanc.mq.consumer.model.OnsTopic;
 import com.hanc.mq.consumer.model.OrderPaidSucceedMessage;
-import com.hanc.mq.core.consumer.base.Observer;
 import com.hanc.mq.core.consumer.OnsSubscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +22,10 @@ public class ListenerEvent {
     @PostConstruct
     public void topicMsgConsumers() {
         if (!onsTopic.getOnsSwitch()) {
-            LOGGER.info("the onsSwitch2 is set off, consumer not subscribe.");
+            LOGGER.info("the onsSwitch2 is set off, consumer not subscribe");
             return;
         }
-        subscriber.attach(onsTopic.getMsgTopic(), "*", String.class, (orderPaidSucceedMessage, tag) -> {
+        subscriber.attach(onsTopic.getMsgTopic(), "*", OrderPaidSucceedMessage.class, (orderPaidSucceedMessage, tag) -> {
             LOGGER.info("consumer first get sensitive2 ONS orderPaidSucceedMessage is [{}], tag is [{}]：", orderPaidSucceedMessage, tag);
         });
     }

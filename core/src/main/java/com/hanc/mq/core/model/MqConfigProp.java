@@ -1,30 +1,28 @@
 package com.hanc.mq.core.model;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 
+@ConfigurationProperties(prefix = "ons")
 @Component
 public class MqConfigProp {
 
-    @Value("${ons.ak}")
-    private String onsAk;
+    private String ak;
 
-    @Value("${ons.sk}")
-    private String onsCk;
+    private String sk;
 
-    @Value("${ons.cid}")
-    private String cid;
+    private String cid = "";
 
-    @Value("${ons.pid}")
-    private String pid;
+    private String pid = "";
 
-    public void setOnsAk(String onsAk) {
-        this.onsAk = onsAk;
+    public void setAk(String ak) {
+        this.ak = ak;
     }
 
-    public void setOnsCk(String onsCk) {
-        this.onsCk = onsCk;
+    public void setSk(String sk) {
+        this.sk = sk;
     }
 
     public void setCid(String cid) {
@@ -35,12 +33,12 @@ public class MqConfigProp {
         this.pid = pid;
     }
 
-    public String getOnsAk() {
-        return onsAk;
+    public String getAk() {
+        return ak;
     }
 
-    public String getOnsCk() {
-        return onsCk;
+    public String getSk() {
+        return sk;
     }
 
     public String getCid() {

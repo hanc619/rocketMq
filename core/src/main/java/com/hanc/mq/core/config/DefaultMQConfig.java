@@ -17,8 +17,8 @@ public abstract class DefaultMQConfig{
 
 	protected Properties mqProperties(){
 		Properties properties = new Properties();
-		properties.put(PropertyKeyConst.AccessKey, mqConfigProp.getOnsAk());
-		properties.put(PropertyKeyConst.SecretKey, mqConfigProp.getOnsCk());
+		properties.put(PropertyKeyConst.AccessKey, mqConfigProp.getAk());
+		properties.put(PropertyKeyConst.SecretKey, mqConfigProp.getSk());
 		return properties;
 	}
 
