@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <rocketmq.version>1.6.0.Final</rocketmq.version>
         <springboot.version>1.5.3.RELEASE</springboot.version>
-        <fastjson.version>1.2.51</fastjson.version>
+        <fastjson.version>1.2.47</fastjson.version>
         <httpclient.version>4.5</httpclient.version>
         <guava.version>18.0</guava.version>
         <commons.collections.version>3.2.2</commons.collections.version>

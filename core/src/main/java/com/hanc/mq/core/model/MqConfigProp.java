@@ -1,6 +1,5 @@
 package com.hanc.mq.core.model;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -9,12 +8,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class MqConfigProp {
 
+    /**
+     * 阿里云的ak
+     */
     private String ak;
 
+    /**
+     * 阿里云的sk
+     */
     private String sk;
 
+    /**
+     * 消息队列的cid
+     */
     private String cid = "";
 
+    /**
+     * 消息队列的pid
+     */
     private String pid = "";
 
     public void setAk(String ak) {

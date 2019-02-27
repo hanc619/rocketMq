@@ -52,4 +52,12 @@ public class OrderAPIController {
 		publishMqClient.sendAsyncMessage(onsTopic.getMsgTopic(), "tag2",new OrderPaidSucceedMessage(orderId), String.valueOf(orderId));
 	}
 
+	@PostMapping("delay")
+	@ApiOperation(value = "delay")
+	public void delay(Integer orderId, Long delayTime) {
+		i.addAndGet(1);
+		orderId = i.intValue();
+		publishMqClient.sendDelayMessage(onsTopic.getMsgTopic(), "tag2",new OrderPaidSucceedMessage(orderId), String.valueOf(orderId), delayTime * 1000);
+	}
+
 }
