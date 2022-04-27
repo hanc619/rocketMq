@@ -19,6 +19,8 @@ public class ListenerEvent {
     private OnsTopic onsTopic;
 
 
+    String value = "q2ouqlt";
+
     @PostConstruct
     public void topicMsgConsumers() {
         if (!onsTopic.getOnsSwitch()) {
