@@ -19,7 +19,7 @@ public class ListenerEvent {
     private OnsTopic onsTopic;
 
 
-    String value = "q2ouqlt";
+    String value = "q2ou13758287402qlt";
 
     @PostConstruct
     public void topicMsgConsumers() {
